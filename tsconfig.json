@@ -4,6 +4,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@features/home": [
+        "./dist/features/home"
+      ],
+      "@features/homepage": [
+        "./dist/features/homepage"
+      ],
       "@features/login": [
         "./dist/features/login"
       ],

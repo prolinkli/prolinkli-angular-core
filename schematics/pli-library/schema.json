@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the library",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "prefix": {
+      "type": "string",
+      "description": "The prefix to apply to generated selectors",
+      "default": "pli"
+    },
+    "path": {
+      "type": "string",
+      "description": "The path where to create the library",
+      "default": "src/app/features"
+    }
+  },
+  "required": ["name"]
+}

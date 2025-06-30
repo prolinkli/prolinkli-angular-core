@@ -181,23 +181,23 @@
         }
       }
     },
-    "test-feature": {
+    "@features/home": {
       "projectType": "library",
-      "root": "src/app/test-feature",
-      "sourceRoot": "src/app/test-feature/src",
+      "root": "src/app/features/home",
+      "sourceRoot": "src/app/features/home/src",
       "prefix": "pli",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "src/app/test-feature/ng-package.json"
+            "project": "src/app/features/home/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "src/app/test-feature/tsconfig.lib.prod.json"
+              "tsConfig": "src/app/features/home/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "src/app/test-feature/tsconfig.lib.json"
+              "tsConfig": "src/app/features/home/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -205,106 +205,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "src/app/test-feature/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "@shared/layout": {
-      "projectType": "library",
-      "root": "src/app/shared/layout",
-      "sourceRoot": "src/app/shared/layout/src",
-      "prefix": "pli",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "src/app/shared/layout/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "src/app/shared/layout/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "src/app/shared/layout/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "src/app/shared/layout/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "@features/login": {
-      "projectType": "library",
-      "root": "src/app/features/login",
-      "sourceRoot": "src/app/features/login/src",
-      "prefix": "pli",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "src/app/features/login/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "src/app/features/login/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "src/app/features/login/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "src/app/features/login/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "@shared/pli-ui": {
-      "projectType": "library",
-      "root": "src/app/shared/pli-ui",
-      "sourceRoot": "src/app/shared/pli-ui/src",
-      "prefix": "pli",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "src/app/shared/pli-ui/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "src/app/shared/pli-ui/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "src/app/shared/pli-ui/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "src/app/shared/pli-ui/tsconfig.spec.json",
+            "tsConfig": "src/app/features/home/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

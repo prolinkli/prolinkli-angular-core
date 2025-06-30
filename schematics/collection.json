@@ -1,0 +1,10 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "pli-library": {
+      "description": "Generate a library with index.ts instead of public-api.ts",
+      "factory": "./pli-library/index#pliLibrary",
+      "schema": "./pli-library/schema.json"
+    }
+  }
+}
