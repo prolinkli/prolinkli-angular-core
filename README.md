@@ -12,6 +12,70 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+### API Proxy
+
+The development server is configured with a proxy that redirects `/api` requests to `localhost:8080/v1/api` to connect with the backend server. This is configured in `proxy.conf.json` and automatically active during development.
+
+## Project Structure
+
+This project follows a structured approach with three main directories:
+
+```
+src/app/
+├── core/       # Non-business feature code (services, guards, interceptors, configs)
+├── features/   # Business feature code (organized as internal modules)
+└── shared/     # Code shared between features (common components, utilities)
+
+projects/       # Publishable libraries with scoped package names
+├── admin-dashboard/
+├── [other-library]/
+└── ...
+```
+
+### Creating Publishable Feature Libraries
+
+To create publishable feature libraries with scoped package names:
+
+```bash
+# Create a library (gets its own package.json)
+ng generate library [package-name] --prefix=[your-prefix]
+
+# Example: Create an admin dashboard library
+ng generate library admin-dashboard --prefix=pli
+```
+
+**Update the package.json** to use scoped naming:
+```json
+{
+  "name": "@prolinkli-feature/admin-dashboard"
+}
+```
+
+**Build and publish:**
+```bash
+# Build the library
+ng build admin-dashboard
+
+# Publish to npm (from dist directory)
+cd dist/admin-dashboard
+npm publish --access public
+```
+
+**Usage in other projects:**
+```bash
+# Install the package
+npm install @prolinkli-feature/admin-dashboard
+
+# Import in your code
+import { AdminDashboardComponent } from '@prolinkli-feature/admin-dashboard';
+```
+
+Each library includes:
+- Own `package.json` with scoped name
+- Public API exports via `public-api.ts`
+- TypeScript configuration
+- Build and test setup
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

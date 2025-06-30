@@ -1,6 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
 import { config } from './app/core/app.config.server';
+import { AppComponent } from '@pli-shared/layout';
 
 const bootstrap = () => bootstrapApplication(AppComponent, config);
 

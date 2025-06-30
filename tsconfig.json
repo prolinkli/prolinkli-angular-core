@@ -3,6 +3,26 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@features/login": [
+        "./dist/features/login"
+      ],
+      "@pli-feature/*": [
+        "./src/app/features/*/src"
+      ],
+      "@pli-shared/*": [
+        "./src/app/shared/*/src"
+      ],
+      "@shared/pli-ui": [
+        "./dist/shared/pli-ui"
+      ],
+      "test-feature": [
+        "./dist/test-feature"
+      ],
+      "test-schematic": [
+        "./dist/test-schematic"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,

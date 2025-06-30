@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:prolinkli-angular-core": "node dist/prolinkli-angular-core/server/server.mjs"
+    "serve:ssr:prolinkli-angular-core": "node dist/prolinkli-angular-core/server/server.mjs",
+    "create-feature": "ng generate library $npm_config_name --prefix=pli && mv projects/$npm_config_name src/app/features/ && node -e \"const fs=require('fs');const base='src/app/features/'+process.env.npm_config_name;fs.renameSync(base+'/src/public-api.ts',base+'/src/index.ts');const pkg=JSON.parse(fs.readFileSync(base+'/package.json'));pkg.name='@pli-feature/'+process.env.npm_config_name;fs.writeFileSync(base+'/package.json',JSON.stringify(pkg,null,2)+'\n');const ng=JSON.parse(fs.readFileSync(base+'/ng-package.json'));ng.lib.entryFile='src/index.ts';fs.writeFileSync(base+'/ng-package.json',JSON.stringify(ng,null,2)+'\n');console.log('✅ Created @pli-feature/'+process.env.npm_config_name+' with index.ts')\""
   },
   "private": true,
   "dependencies": {
@@ -27,6 +28,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.15",
+    "@angular-devkit/core": "^20.0.4",
+    "@angular-devkit/schematics": "^20.0.4",
     "@angular/cli": "^19.2.15",
     "@angular/compiler-cli": "^19.2.0",
     "@types/express": "^4.17.17",
@@ -38,6 +41,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^19.2.0",
     "typescript": "~5.7.2"
   }
 }
