@@ -1,0 +1,99 @@
+// Core theming mixins
+
+// Button mixin
+@mixin button-variant($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  &:hover {
+    color: $color;
+    background-color: darken($background, 7.5%);
+    border-color: darken($border, 10%);
+  }
+
+  &:focus,
+  &.focus {
+    box-shadow: 0 0 0 0.1rem rgba($border, 0.5);
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $color;
+    background-color: $background;
+    border-color: $border;
+    opacity: 0.65;
+  }
+}
+
+// Card mixin
+@mixin card($padding: 1rem, $border: true) {
+  background-color: $white;
+  border-radius: $border-radius;
+  padding: $padding;
+
+  @if $border {
+    border: $border-width solid $border-color;
+  }
+
+  box-shadow: $box-shadow-sm;
+}
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Responsive breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint ==xs {
+    @media (max-width: 575.98px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==sm {
+    @media (min-width: 576px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==md {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==lg {
+    @media (min-width: 992px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==xl {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==xxl {
+    @media (min-width: 1400px) {
+      @content;
+    }
+  }
+}
+
+// Text utilities
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

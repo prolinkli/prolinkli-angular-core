@@ -45,6 +45,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/scss-aliases"
+              ]
+            },
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
@@ -110,6 +115,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/scss-aliases"
+              ]
+            },
             "scripts": []
           }
         }
@@ -143,40 +153,12 @@
             "polyfills": [
               "zone.js",
               "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "test-schematic": {
-      "projectType": "library",
-      "root": "src/app/test-schematic",
-      "sourceRoot": "src/app/test-schematic/src",
-      "prefix": "pli",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "src/app/test-schematic/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "src/app/test-schematic/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "src/app/test-schematic/tsconfig.lib.json"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/scss-aliases"
+              ]
             }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "src/app/test-schematic/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
           }
         }
       }
@@ -209,7 +191,12 @@
             "polyfills": [
               "zone.js",
               "zone.js/testing"
-            ]
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/scss-aliases"
+              ]
+            }
           }
         }
       }

@@ -1,0 +1,6 @@
+// SCSS alias for @pli-theming/core
+// This forwards to the actual theming files
+@forward './globals/variables';
+@forward './globals/mixins';
+
+@forward './components';

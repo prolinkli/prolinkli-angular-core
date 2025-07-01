@@ -1,0 +1,25 @@
+@use '../globals/variables' as *;
+@use '../globals/mixins' as *;
+
+// Example button styles using the theming system
+.btn {
+  padding: map-get($spacers, 1) map-get($spacers, 5);
+  border: $border-width solid transparent;
+  border-radius: $border-radius;
+  font-size: $font-size-base;
+  font-weight: 500;
+  line-height: $line-height-base;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+
+  &.btn-primary {
+    @include button-variant($white, $primary-color, $primary-color);
+  }
+
+  &.btn-secondary {
+    @include button-variant($white, $secondary-color, $secondary-color);
+  }
+}

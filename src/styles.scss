@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Import core theming using custom alias
+@use '@pli-theming/core' as pli;
+
+// Example usage of theming variables and mixins
+body {
+  font-family: pli.$font-family-base;
+  font-size: pli.$font-size-base;
+  line-height: pli.$line-height-base;
+  color: pli.$gray-900;
+  background-color: pli.$gray-100;
+  margin: 0;
+  padding: 0;
+}
