@@ -4,3 +4,5 @@
 
 
 export * from './lib/input/input.component';
+export * from './lib/container/container.directive';
+

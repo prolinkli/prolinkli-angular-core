@@ -1,0 +1,7 @@
+@use '../globals/variables' as pli;
+
+.pli-container {
+  display: none;
+  padding: 16px;
+  background-color: pli.$white;
+}
