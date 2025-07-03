@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@features/home": [
         "./dist/features/home"
@@ -19,18 +20,28 @@
       "@pli-shared/*": [
         "./src/app/shared/*/src"
       ],
+      "@shared/data-access": [
+        "./dist/shared/data-access"
+      ],
       "@shared/pli-ui": [
         "./dist/shared/pli-ui"
+      ],
+      "@shared/types": [
+        "./dist/shared/types"
       ],
       "test-feature": [
         "./dist/test-feature"
       ],
       "test-schematic": [
         "./dist/test-schematic"
+      ],
+      "types": [
+        "./dist/types"
       ]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
+    "noImplicitAny": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -49,5 +60,31 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "references": [
+    {
+      "path": "./src/app/types/tsconfig.lib.json"
+    },
+    {
+      "path": "./src/app/types/tsconfig.spec.json"
+    },
+    {
+      "path": "./src/app/types/tsconfig.lib.json"
+    },
+    {
+      "path": "./src/app/types/tsconfig.spec.json"
+    },
+    {
+      "path": "./src/app/shared/types/tsconfig.lib.json"
+    },
+    {
+      "path": "./src/app/shared/types/tsconfig.spec.json"
+    },
+    {
+      "path": "./src/app/shared/data-access/tsconfig.lib.json"
+    },
+    {
+      "path": "./src/app/shared/data-access/tsconfig.spec.json"
+    }
+  ]
 }

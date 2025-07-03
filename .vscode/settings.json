@@ -1,0 +1,6 @@
+{
+  "typescript.preferences.useAliasesForRenames": false,
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.includeAutomaticOptionalChainCompletions": true
+} 

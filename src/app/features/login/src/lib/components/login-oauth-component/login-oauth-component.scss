@@ -1,0 +1,119 @@
+@use '@pli-theming/core' as pli;
+@use '@pli-theming/core/components/input' as pli_input;
+
+.oauth-button {
+  position: relative;
+  width: 100%;
+  min-height: pli_input.$input-height;
+  padding: map-get(pli.$spacers, 3) map-get(pli.$spacers, 4);
+
+  background: pli.$white;
+  border: 1px solid pli.$gray-350;
+  border-radius: pli.$border-radius;
+  box-shadow: pli.$light-shadow-500;
+
+  font-family: pli.$font-family-base;
+  font-size: pli.$font-size-base;
+  font-weight: 500;
+  color: pli.$gray-800;
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  // Remove default button styles
+  outline: none;
+  text-decoration: none;
+
+  &:hover {
+    background: pli.$gray-100;
+    border-color: pli.$gray-400;
+    box-shadow: pli.$light-shadow-900;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: pli.$box-shadow-sm;
+  }
+
+  &:focus-visible {
+    outline: 2px solid pli.$primary-color;
+    outline-offset: 2px;
+  }
+
+  .oauth-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: map-get(pli.$spacers, 3);
+    width: 100%;
+  }
+
+  .oauth-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+
+    .provider-icon {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: pli.$primary-color;
+      color: pli.$white;
+      border-radius: 50%;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+  }
+
+  .oauth-text {
+    flex: 1;
+    text-align: center;
+
+    span {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 480px) {
+    min-height: 48px;
+    padding: map-get(pli.$spacers, 2) map-get(pli.$spacers, 3);
+    font-size: 0.9rem;
+
+    .oauth-icon {
+      width: 20px;
+      height: 20px;
+
+      .provider-icon {
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  // Provider-specific styling (optional enhancement)
+  &[data-provider="GOOGLE"] {
+    .provider-icon {
+      background: #db4437;
+    }
+  }
+
+  &[data-provider="MICROSOFT"] {
+    .provider-icon {
+      background: #00a1f1;
+    }
+  }
+
+  &[data-provider="APPLE"] {
+    .provider-icon {
+      background: #000000;
+    }
+  }
+}

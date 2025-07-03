@@ -3,7 +3,7 @@
 
 // Example button styles using the theming system
 .btn {
-  padding: map-get($spacers, 1) map-get($spacers, 5);
+  padding: 7.5px map-get($spacers, 5);
   border: $border-width solid transparent;
   border-radius: $border-radius;
   font-size: $font-size-base;
@@ -20,6 +20,42 @@
   }
 
   &.btn-secondary {
-    @include button-variant($white, $secondary-color, $secondary-color);
+    @include button-variant($white, transparent, $primary-color, 1.5px);
+    font-weight: 400;
+    color: $gray-800;
   }
+}
+
+// Button component variables and mixins
+
+$button-border-radius: 0.375rem;
+$button-transition: all 0.2s ease-in-out;
+$button-min-height: 48px;
+$button-focus-outline: 2px;
+
+// Button hover effect mixin
+@mixin button-hover-effect() {
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+}
+
+// OAuth button base styles
+@mixin oauth-button-base() {
+  width: 100%;
+  min-height: $button-min-height;
+  border: 1px solid;
+  border-radius: $button-border-radius;
+  cursor: pointer;
+  transition: $button-transition;
+  outline: none;
+  text-decoration: none;
+  
+  @include button-hover-effect();
 }

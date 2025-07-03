@@ -1,14 +1,18 @@
-import { Directive, HostBinding } from '@angular/core';
+import { Directive, inject, OnInit, Renderer2, ElementRef } from '@angular/core';
 
 @Directive({
   selector: '[pli-container]',
+  standalone: true,
 })
-export class ContainerDirective {
+export class PliContainer implements OnInit {
 
-  @HostBinding('class')
-  elementClass = 'pli-container';
-
+  private readonly renderer = inject(Renderer2);
+  private readonly elementRef = inject(ElementRef);
 
   constructor() { }
+
+  public ngOnInit(): void {
+    this.renderer.addClass(this.elementRef.nativeElement, 'pli-container');
+  }
 
 }

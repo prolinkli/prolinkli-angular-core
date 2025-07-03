@@ -1,0 +1,12 @@
+<button class="oauth-button"
+ (click)="onButtonClick()" type="button"
+ [attr.data-provider]="oAuthType()">
+  <div class="oauth-content">
+    <div class="oauth-icon">
+      <span class="provider-icon">{{ displayName().charAt(0) }}</span>
+    </div>
+    <div class="oauth-text">
+      <span>Login with {{ displayName() }}</span>
+    </div>
+  </div>
+</button>

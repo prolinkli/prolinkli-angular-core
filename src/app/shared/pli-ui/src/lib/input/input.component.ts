@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   imports: [],
+  standalone: true,
 })
 export class PliInputComponent {
 

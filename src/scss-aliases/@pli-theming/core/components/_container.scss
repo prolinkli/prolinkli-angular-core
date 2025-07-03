@@ -1,7 +1,15 @@
 @use '../globals/variables' as pli;
 
+*[pli-container] {
+  --pli-container-border-radius: 2px;
+  --pli-container-border-color: pli.$gray-150;
+}
+
 .pli-container {
-  display: none;
-  padding: 16px;
+  width: fit-content;
+  padding: 24px 48px;
   background-color: pli.$white;
+  border: 1px solid var(--pli-container-border-color);
+  box-shadow: pli.$light-shadow;
+  border-radius: var(--pli-container-border-radius);
 }

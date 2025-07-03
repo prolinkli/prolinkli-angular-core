@@ -3,4 +3,4 @@
 @forward './globals/variables';
 @forward './globals/mixins';
 
-@forward './components';
+@use './components';

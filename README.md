@@ -32,47 +32,74 @@ projects/       # Publishable libraries with scoped package names
 └── ...
 ```
 
-### Creating Publishable Feature Libraries
+### Creating Publishable Libraries
 
-To create publishable feature libraries with scoped package names:
+This project includes a custom schematic for creating libraries with proper scoping and `index.ts` entry files.
+
+#### Using the Custom Schematic
 
 ```bash
-# Create a library (gets its own package.json)
-ng generate library [package-name] --prefix=[your-prefix]
+# Create a feature library
+ng generate pli-library feature-name
 
-# Example: Create an admin dashboard library
-ng generate library admin-dashboard --prefix=pli
+# Create a library in shared folder
+ng generate pli-library @shared/types
+
+# Create with custom prefix
+ng generate pli-library @auth/services --prefix=auth
 ```
 
-**Update the package.json** to use scoped naming:
-```json
-{
-  "name": "@prolinkli-feature/admin-dashboard"
-}
+#### Alternative: Using npm script
+
+```bash
+# Create a feature library using the npm script
+npm run create-feature --name=library-name
 ```
 
-**Build and publish:**
+#### What the schematic does:
+
+1. **Generates** a standard Angular library
+2. **Renames** `public-api.ts` to `index.ts`
+3. **Updates** `ng-package.json` to use `index.ts` as entry file
+4. **Sets** scoped package name automatically
+
+#### Examples:
+
+```bash
+# Creates src/app/features/dashboard/ with standard naming
+ng generate pli-library dashboard
+
+# Creates src/app/shared/types/ with @shared scope
+ng generate pli-library @shared/types
+
+# Creates src/app/features/auth/ with standard naming
+ng generate pli-library auth
+```
+
+#### Building and Publishing:
+
 ```bash
 # Build the library
-ng build admin-dashboard
+ng build library-name
 
 # Publish to npm (from dist directory)
-cd dist/admin-dashboard
+cd dist/library-name
 npm publish --access public
 ```
 
-**Usage in other projects:**
+#### Usage in other projects:
+
 ```bash
 # Install the package
-npm install @prolinkli-feature/admin-dashboard
+npm install @pli-feature/library-name
 
 # Import in your code
-import { AdminDashboardComponent } from '@prolinkli-feature/admin-dashboard';
+import { SomeComponent } from '@pli-feature/library-name';
 ```
 
 Each library includes:
 - Own `package.json` with scoped name
-- Public API exports via `public-api.ts`
+- Public API exports via `index.ts`
 - TypeScript configuration
 - Build and test setup
 
