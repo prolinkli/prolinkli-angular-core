@@ -5,6 +5,12 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for running this workflow'
+        required: false
+        default: 'Manual trigger'
 
 jobs:
   test-and-build:
@@ -38,16 +44,29 @@ jobs:
 
     - name: Build all libraries
       run: |
-        echo "Building feature libraries..."
-        npx ng build @features/admin-dashboard --configuration=production || echo "Failed to build admin-dashboard"
-        npx ng build @features/home --configuration=production || echo "Failed to build home"
-        npx ng build @features/login --configuration=production || echo "Failed to build login"
+        echo "🏗️ Discovering and building all libraries..."
         
-        echo "Building shared libraries..."
-        npx ng build @shared/data-access --configuration=production || echo "Failed to build data-access"
-        npx ng build @shared/layout --configuration=production || echo "Failed to build layout"
-        npx ng build @shared/pli-ui --configuration=production || echo "Failed to build pli-ui"
-        npx ng build @shared/types --configuration=production || echo "Failed to build types"
+        # Get all library projects from angular.json and build them
+        npx ng build --help > /dev/null 2>&1 # ensure ng is working
+        
+        # Extract library project names from angular.json
+        LIBRARIES=$(node -e "
+          const config = require('./angular.json');
+          const projects = Object.keys(config.projects).filter(name => 
+            config.projects[name].projectType === 'library'
+          );
+          console.log(projects.join(' '));
+        ")
+        
+        echo "Found libraries: $LIBRARIES"
+        
+        # Build each library
+        for lib in $LIBRARIES; do
+          echo "🔨 Building $lib..."
+          npx ng build "$lib" --configuration=production
+        done
+        
+        echo "✅ All libraries built successfully!"
 
     - name: Upload test coverage
       uses: actions/upload-artifact@v4
