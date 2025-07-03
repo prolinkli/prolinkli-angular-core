@@ -21,6 +21,10 @@ jobs:
         node-version: [22.x]
     
     steps:
+    - name: Workflow Info
+      if: github.event_name == 'workflow_dispatch'
+      run: echo "🚀 Manual run triggered - ${{ github.event.inputs.reason }}"
+      
     - name: Checkout code
       uses: actions/checkout@v4
 

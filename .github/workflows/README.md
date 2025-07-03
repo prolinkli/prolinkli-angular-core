@@ -4,11 +4,19 @@ This directory contains GitHub Actions workflows that ensure code quality and su
 
 ## 🔄 Workflows Overview
 
+### 🚀 Manual Triggers Available
+All workflows can now be triggered manually from GitHub Actions:
+1. Go to **Actions** tab in your GitHub repository
+2. Select the workflow you want to run
+3. Click **"Run workflow"** button
+4. Optionally provide a reason for the run
+5. Click **"Run workflow"** to start
+
 ### 1. CI Pipeline (`ci.yml`)
-**Triggers:** Push to `main`/`develop` branches, Pull Requests
+**Triggers:** Push to `main`/`develop` branches, Pull Requests, Manual
 **Purpose:** Main build and test workflow
 
-- ✅ Sets up Node.js 20.x (compatible with Angular 20)
+- ✅ Sets up Node.js 22.x (compatible with Angular 20)
 - ✅ Installs dependencies using `npm ci`
 - ✅ Runs linting (if configured)
 - ✅ Executes unit tests with coverage
@@ -17,7 +25,7 @@ This directory contains GitHub Actions workflows that ensure code quality and su
 - ✅ Uploads test coverage and build artifacts
 
 ### 2. Branch Protection (`branch-protection.yml`)
-**Triggers:** Pull Requests to `main` branch
+**Triggers:** Pull Requests to `main` branch, Manual
 **Purpose:** Additional validation and security checks
 
 - 🔍 TypeScript compilation validation
@@ -27,7 +35,7 @@ This directory contains GitHub Actions workflows that ensure code quality and su
 - 📦 Outdated package detection
 
 ### 3. SSR Validation (`ssr-validation.yml`)
-**Triggers:** Pull Requests affecting source code or config files
+**Triggers:** Pull Requests affecting source code or config files, Manual
 **Purpose:** Validates Server-Side Rendering functionality
 
 - 🏗️ Builds application with SSR enabled

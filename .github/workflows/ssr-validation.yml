@@ -9,6 +9,12 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'tsconfig*.json'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for running SSR validation'
+        required: false
+        default: 'Manual SSR test'
 
 jobs:
   ssr-build-test:
