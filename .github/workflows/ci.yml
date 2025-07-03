@@ -46,32 +46,6 @@ jobs:
     - name: Build main application
       run: npm run build -- --configuration=production
 
-    - name: Build all libraries
-      run: |
-        echo "🏗️ Discovering and building all libraries..."
-        
-        # Get all library projects from angular.json and build them
-        npx ng build --help > /dev/null 2>&1 # ensure ng is working
-        
-        # Extract library project names from angular.json
-        LIBRARIES=$(node -e "
-          const config = require('./angular.json');
-          const projects = Object.keys(config.projects).filter(name => 
-            config.projects[name].projectType === 'library'
-          );
-          console.log(projects.join(' '));
-        ")
-        
-        echo "Found libraries: $LIBRARIES"
-        
-        # Build each library
-        for lib in $LIBRARIES; do
-          echo "🔨 Building $lib..."
-          npx ng build "$lib" --configuration=production
-        done
-        
-        echo "✅ All libraries built successfully!"
-
     - name: Upload test coverage
       uses: actions/upload-artifact@v4
       with:
