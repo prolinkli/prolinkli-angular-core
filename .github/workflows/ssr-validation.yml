@@ -1,0 +1,96 @@
+name: SSR Build Validation
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'src/**'
+      - 'angular.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig*.json'
+
+jobs:
+  ssr-build-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build for SSR
+      run: |
+        echo "🏗️ Building application with SSR..."
+        npm run build -- --configuration=production
+        
+    - name: Verify SSR artifacts
+      run: |
+        echo "🔍 Verifying SSR build artifacts..."
+        if [ ! -f "dist/prolinkli-angular-core/server/server.mjs" ]; then
+          echo "❌ SSR server file not found!"
+          exit 1
+        fi
+        
+        if [ ! -d "dist/prolinkli-angular-core/browser" ]; then
+          echo "❌ Browser build directory not found!"
+          exit 1
+        fi
+        
+        echo "✅ SSR artifacts verified successfully"
+
+    - name: Test SSR server startup
+      run: |
+        echo "🚀 Testing SSR server startup..."
+        cd dist/prolinkli-angular-core
+        timeout 30s node server/server.mjs &
+        SERVER_PID=$!
+        
+        # Wait a bit for server to start
+        sleep 5
+        
+        # Test if server is responding
+        if curl -f http://localhost:4000 > /dev/null 2>&1; then
+          echo "✅ SSR server is responding correctly"
+          kill $SERVER_PID
+        else
+          echo "❌ SSR server failed to respond"
+          kill $SERVER_PID
+          exit 1
+        fi
+
+    - name: Check bundle sizes
+      run: |
+        echo "📊 Checking bundle sizes..."
+        if [ -f "dist/prolinkli-angular-core/browser/main*.js" ]; then
+          MAIN_SIZE=$(du -h dist/prolinkli-angular-core/browser/main*.js | cut -f1)
+          echo "Main bundle size: $MAIN_SIZE"
+        fi
+        
+        if [ -f "dist/prolinkli-angular-core/server/server.mjs" ]; then
+          SERVER_SIZE=$(du -h dist/prolinkli-angular-core/server/server.mjs | cut -f1)
+          echo "Server bundle size: $SERVER_SIZE"
+        fi
+
+    - name: Validate prerendered pages
+      run: |
+        echo "🔍 Validating prerendered pages..."
+        if [ -d "dist/prolinkli-angular-core/browser" ]; then
+          find dist/prolinkli-angular-core/browser -name "*.html" -type f | while read -r file; do
+            echo "Found prerendered page: $file"
+            # Basic validation - check if HTML contains basic Angular SSR markers
+            if grep -q "ng-version" "$file"; then
+              echo "✅ $file contains Angular SSR markers"
+            else
+              echo "⚠️  $file might not be properly prerendered"
+            fi
+          done
+        fi 
