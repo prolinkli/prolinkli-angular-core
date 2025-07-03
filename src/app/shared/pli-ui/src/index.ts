@@ -3,6 +3,6 @@
  */
 
 
-export * from './lib/input/input.component';
+export * from './lib/text-input/text-input.component';
 export * from './lib/container/container.directive';
 

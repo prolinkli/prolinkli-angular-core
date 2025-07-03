@@ -16,7 +16,7 @@ export class AuthService {
   readonly AUTH_URL = '/api/auth/oauth2';
 
   internalLogin(form: UserAuthenticationForm) {
-    return this.http.post<UserAuthenticationForm>(`${this.API_URL}/login`, form);
+    return this.http.post<UserAuthenticationForm>(`${this.API_URL}/login`, form).subscribe({});
   }
 
 

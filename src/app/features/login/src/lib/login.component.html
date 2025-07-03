@@ -2,9 +2,26 @@
   <div class="left">
     <div class="container">
       <div pli-container class="inner-container">
+        <div class="form-group">
+          <form [formGroup]="form" >
+            <pli-text-input
+              placeholder="Enter your username"
+              formControlName="username"
+            >
+            </pli-text-input>
+            <pli-text-input
+              type="password"
+              placeholder="Enter your password"
+              formControlName="password"
+            >
+            </pli-text-input>
+          </form>
+        </div>
         <div class="button-group">
           <button
-           class="btn btn-primary">
+           class="btn btn-primary"
+           (click)="onInternalLoginClick()"
+          >
             Login
           </button>
           <button
