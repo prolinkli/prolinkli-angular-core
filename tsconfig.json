@@ -63,18 +63,6 @@
   },
   "references": [
     {
-      "path": "./src/app/types/tsconfig.lib.json"
-    },
-    {
-      "path": "./src/app/types/tsconfig.spec.json"
-    },
-    {
-      "path": "./src/app/types/tsconfig.lib.json"
-    },
-    {
-      "path": "./src/app/types/tsconfig.spec.json"
-    },
-    {
       "path": "./src/app/shared/types/tsconfig.lib.json"
     },
     {

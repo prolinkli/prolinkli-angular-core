@@ -1,8 +1,8 @@
-import { ContainerDirective } from './container.directive';
+import { PliContainer } from './container.directive';
 
-describe('ContainerDirective', () => {
+describe('PliContainer', () => {
   it('should create an instance', () => {
-    const directive = new ContainerDirective();
+    const directive = new PliContainer();
     expect(directive).toBeTruthy();
   });
 });
