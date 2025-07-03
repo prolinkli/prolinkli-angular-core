@@ -1,1 +1,13 @@
 @use '@pli-theming/core' as pli;
+
+label {
+  display: block;
+
+  color: pli.$gray-625;
+
+  font-size: 1rem;
+  font-weight: 400;
+
+  margin-bottom: 4px;
+
+}

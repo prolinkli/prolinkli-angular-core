@@ -5,6 +5,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pli-text-input',
   template: `
+    @if (label()) {
+      <label class="text-input-label" [for]="label()">{{ label() }}</label>
+    }
     <input
       class="text-input"
       [type]="type()"
@@ -33,6 +36,7 @@ export class PliTextInputComponent implements ControlValueAccessor {
   readonly placeholder = input('');
   readonly disabled = input(false);
   readonly type = input<'text' | 'password'>('text');
+  readonly label = input<string | null>(null);
 
   protected readonly _disabled = linkedSignal(() => this.disabled());
   value = '';

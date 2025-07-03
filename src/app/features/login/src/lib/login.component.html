@@ -2,21 +2,28 @@
   <div class="left">
     <div class="container">
       <div pli-container class="inner-container">
-        <div class="form-group">
-          <form [formGroup]="form" >
-            <pli-text-input
-              placeholder="Enter your username"
-              formControlName="username"
-            >
-            </pli-text-input>
-            <pli-text-input
-              type="password"
-              placeholder="Enter your password"
-              formControlName="password"
-            >
-            </pli-text-input>
-          </form>
-        </div>
+        <img
+          src="/icons/temp_logo.svg"
+          alt="Logo"
+          class="pli-logo"
+        />
+        <form [formGroup]="form" >
+          <div class="form-group">
+              <pli-text-input
+                label="Username"
+                placeholder="Enter your username"
+                formControlName="username"
+              >
+              </pli-text-input>
+              <pli-text-input
+              label="Password"
+                type="password"
+                placeholder="Enter your password"
+                formControlName="specialToken"
+              >
+              </pli-text-input>
+          </div>
+        </form>
         <div class="button-group">
           <button
            class="btn btn-primary"

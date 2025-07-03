@@ -2,6 +2,10 @@
 
 $input-height: 53px;
 
+label.pli-input {
+
+}
+
 input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="tel"], input[type="search"] {
   height: $input-height;
   width: 100%;
