@@ -26,10 +26,23 @@
     background: linear-gradient(to bottom, pli.$red-500, darken(pli.$red-500, 10%));
   }
 
+  .error-content {
+    display: flex;
+    align-items: center;
+    gap: map-get(pli.$spacers, 3);
+    padding-left: map-get(pli.$spacers, 3);
+  }
+
+  .error-icon {
+    font-size: 1.1rem;
+    color: pli.$red-500;
+    flex-shrink: 0;
+  }
+
   p {
     margin: 0;
     font-weight: 500;
-    padding-left: map-get(pli.$spacers, 3);
+    flex: 1;
   }
 
   // Subtle hover effect

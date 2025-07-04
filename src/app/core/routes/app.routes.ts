@@ -1,29 +1,38 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from '../guard/auth.guard';
+import { WebAppRoutes } from './webapp/webapp.routes';
+import { LoggedOutGuard } from '../guard/loggedout.guard';
 
 export const routes: Routes = [
   {
     path: 'admin',
-    loadComponent: () => import('@pli-feature/admin-dashboard').then(m => m.AdminDashboardComponent),
+    loadComponent: () =>
+      import('@pli-feature/admin-dashboard').then(
+        (m) => m.AdminDashboardComponent,
+      ),
+    canActivate: [LoggedOutGuard],
     data: {
       title: 'Admin Dashboard',
-      breadcrumb: 'Admin Dashboard'
-    }
+      breadcrumb: 'Admin Dashboard',
+    },
   },
   {
     path: 'login',
-    loadComponent: () => import('@pli-feature/login').then(m => m.LoginComponent),
+    loadComponent: () =>
+      import('@pli-feature/login').then((m) => m.LoginComponent),
+    canActivate: [LoggedOutGuard],
     data: {
       title: 'Login',
-      breadcrumb: 'Login'
-    }
+      breadcrumb: 'Login',
+    },
   },
   {
     path: 'app',
-    loadComponent: () => import('@pli-feature/home').then(m => m.HomeComponent),
+    children: WebAppRoutes,
+    canActivate: [AuthGuard],
   },
-  //TODO: probably want to move this route to the home lib - just because the home page could be different based on the user's role
   {
-    path: '',
-    loadComponent: () => import('@pli-feature/home').then(m => m.HomeComponent),
-  }
+    path: '**',
+    redirectTo: '/app',
+  },
 ];

@@ -1,7 +1,15 @@
-import { Component, computed, inject, signal, Signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  signal,
+  Signal,
+} from '@angular/core';
 import {
   LkUserAuthenticationMethod,
   LkUserAuthenticationMethods,
+  User,
 } from '@pli-shared/types';
 import { OAuthLoginComponent } from './components/login-oauth-component/login-oauth-component';
 import {
@@ -46,6 +54,8 @@ export class LoginComponent {
   );
 
   //state
+  readonly returnUrl = input<string>();
+
   readonly errorMessage = signal<string>('');
   readonly shouldShowError: Signal<boolean> = computed(
     () => this.errorMessage()?.length > 0,
@@ -73,6 +83,10 @@ export class LoginComponent {
           return of(error);
         }),
       )
-      .subscribe({});
+      .subscribe((data: User | Error) => {
+        if ('id' in data && data.id) {
+          this.authService.router.navigate([this.returnUrl() || '/app']);
+        }
+      });
   }
 }
