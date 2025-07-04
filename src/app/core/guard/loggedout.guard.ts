@@ -13,18 +13,16 @@ import { map, skipWhile, tap } from 'rxjs';
 export class LoggedOutGuard implements CanActivate {
   private authService = inject(AuthService);
 
-  constructor() {}
+  constructor() { }
 
   canActivate(_: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.authService.isUserLoggedIn().pipe(
-      skipWhile((isLoggedIn) => isLoggedIn === null), // Skip until we have a valid login state
       tap((isLoggedIn) => {
-        if (!isLoggedIn) {
+        if (isLoggedIn) {
           // If the user is not logged in, redirect to the login page
-          this.authService.router.navigate(['/login'], {
-            queryParams: { returnUrl: state.url },
-          });
+          this.authService.router.navigate(['/app']);
         }
+        return !isLoggedIn;
       }),
       map((isLoggedIn) => isLoggedIn ?? false),
     );
