@@ -2,42 +2,31 @@
   <div class="left">
     <div class="container">
       <div pli-container class="inner-container">
-        <img
-          src="/icons/temp_logo.svg"
-          alt="Logo"
-          class="pli-logo"
-        />
-        <form [formGroup]="form" >
+        <img src="/icons/temp_logo.svg" alt="Logo" class="pli-logo" />
+        <pli-error-message [errorMessage]="errorMessage()" />
+
+        <form [formGroup]="form">
           <div class="form-group">
-              <pli-text-input
-                label="Username"
-                placeholder="Enter your username"
-                formControlName="username"
-              >
-              </pli-text-input>
-              <pli-text-input
-              label="Password"
-                type="password"
-                placeholder="Enter your password"
-                formControlName="specialToken"
-              >
-              </pli-text-input>
+            <pli-text-input
+             label="Username"
+             placeholder="Enter your username"
+             formControlName="username">
+            </pli-text-input>
+            <pli-text-input
+             label="Password"
+             type="password"
+             placeholder="Enter your password"
+             formControlName="specialToken">
+            </pli-text-input>
           </div>
         </form>
         <div class="button-group">
-          <button
-           class="btn btn-primary"
-           (click)="onInternalLoginClick()"
-          >
+          <button class="btn btn-primary" (click)="onInternalLoginClick()">
             Login
           </button>
-          <button
-           class="btn btn-secondary">
-            Signup
-          </button>
+          <button class="btn btn-secondary">Signup</button>
         </div>
-        <div class="divider">
-        </div>
+        <div class="divider"></div>
         <div class="oauth-buttons">
           @for (oauth of validOAuthMethods(); track oauth) {
           <pli-login-oauth-component
@@ -49,7 +38,5 @@
       </div>
     </div>
   </div>
-  <div class="right">
-    some bullshit
-  </div>
+  <div class="right">some bullshit</div>
 </div>

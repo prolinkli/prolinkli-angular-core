@@ -1,0 +1,55 @@
+@use '@pli-theming/core' as pli;
+
+.error-message {
+  width: 100%;
+  padding: map-get(pli.$spacers, 4) map-get(pli.$spacers, 5);
+  background-color: rgba(pli.$red-500, 0.1);
+  border: 1px solid rgba(pli.$red-500, 0.3);
+  border-radius: pli.$border-radius;
+  box-sizing: border-box;
+  font-family: pli.$font-family-base;
+  font-size: pli.$font-size-base;
+  line-height: pli.$line-height-base;
+  color: pli.$red-500;
+  box-shadow: pli.$box-shadow-sm;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, pli.$red-500, darken(pli.$red-500, 10%));
+  }
+
+  p {
+    margin: 0;
+    font-weight: 500;
+    padding-left: map-get(pli.$spacers, 3);
+  }
+
+  // Subtle hover effect
+  &:hover {
+    background-color: rgba(pli.$red-500, 0.12);
+    border-color: rgba(pli.$red-500, 0.4);
+    box-shadow: pli.$box-shadow;
+  }
+
+  // Animation for when error appears
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
