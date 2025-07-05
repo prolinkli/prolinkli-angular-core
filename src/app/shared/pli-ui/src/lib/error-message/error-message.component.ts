@@ -5,7 +5,7 @@ import {
   input,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,5 +27,5 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 export class ErrorMessageComponent {
   readonly errorMessage = input.required<string>();
   readonly shouldShowError = computed(() => this.errorMessage()?.length > 0);
-  readonly errorIcon = faXmark;
+  readonly errorIcon = faCircleXmark;
 }
