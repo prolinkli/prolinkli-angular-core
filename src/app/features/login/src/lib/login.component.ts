@@ -63,7 +63,11 @@ export class LoginComponent {
     () => this.errorMessage()?.length > 0,
   );
 
-  readonly loading = computed(() => this.loadingStatus.loading());
+  readonly loading = signal<boolean>(false);
+
+  // for oauth redirect links
+  readonly oauth_code = input<string>('');
+  readonly oauth_state = input<string>('');
 
   onOAuthLoginClick(oAuthType: LkUserAuthenticationMethod): void {
     this.authService.oauthLogin(oAuthType);

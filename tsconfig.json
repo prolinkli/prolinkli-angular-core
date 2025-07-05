@@ -23,6 +23,9 @@
       "@shared/data-access": [
         "./dist/shared/data-access"
       ],
+      "@shared/operators": [
+        "./dist/shared/operators"
+      ],
       "@shared/pli-ui": [
         "./dist/shared/pli-ui"
       ],
@@ -73,6 +76,12 @@
     },
     {
       "path": "./src/app/shared/data-access/tsconfig.spec.json"
+    },
+    {
+      "path": "./src/app/shared/operators/tsconfig.lib.json"
+    },
+    {
+      "path": "./src/app/shared/operators/tsconfig.spec.json"
     }
   ]
 }

@@ -29,6 +29,7 @@ export class LoadingInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // This is a placeholder for the actual implementation of the loading interceptor.
     // It should handle the request and return an observable.
+
     return next.handle(req).pipe(
       tap(() => {
         this.loadingService.loading.set(true);

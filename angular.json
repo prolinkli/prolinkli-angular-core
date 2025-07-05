@@ -289,6 +289,36 @@
           }
         }
       }
+    },
+    "@shared/operators": {
+      "projectType": "library",
+      "root": "src/app/shared/operators",
+      "sourceRoot": "src/app/shared/operators/src",
+      "prefix": "pli",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "src/app/shared/operators/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "src/app/shared/operators/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "src/app/shared/operators/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   }
 }
