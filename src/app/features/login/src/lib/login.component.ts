@@ -18,10 +18,10 @@ import {
   PliContainer,
   PliTextInputComponent,
 } from '@pli-shared/pli-ui';
-import { AuthService } from '@pli-shared/data-access';
+import { AuthService, LoadableComponent } from '@pli-shared/data-access';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { catchError, of, tap } from 'rxjs';
-import { withLoading, withLoadingAndError } from '@pli-shared/operators';
+import { withLoading } from '@pli-shared/operators';
 
 @Component({
   selector: 'pli-login',
@@ -36,7 +36,7 @@ import { withLoading, withLoadingAndError } from '@pli-shared/operators';
   templateUrl: './login.component.html',
   standalone: true,
 })
-export class LoginComponent {
+export class LoginComponent extends LoadableComponent {
   readonly authService = inject(AuthService);
   readonly formBuilder = inject(FormBuilder);
 
@@ -61,8 +61,6 @@ export class LoginComponent {
   readonly shouldShowError: Signal<boolean> = computed(
     () => this.errorMessage()?.length > 0,
   );
-
-  readonly loading = signal<boolean>(false);
 
   // for oauth redirect links
   readonly oauth_code = input<string>('');
