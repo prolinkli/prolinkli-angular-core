@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  effect,
   inject,
   input,
   signal,
@@ -20,7 +21,7 @@ import {
 import { AuthService } from '@pli-shared/data-access';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { catchError, of } from 'rxjs';
-import { LoadingInterceptor } from 'src/app/shared/data-access/src/interceptors/loading.interceptor';
+import { LoadingService } from 'src/app/shared/data-access/src/loading/loading.service';
 
 @Component({
   selector: 'pli-login',
@@ -36,7 +37,7 @@ import { LoadingInterceptor } from 'src/app/shared/data-access/src/interceptors/
   standalone: true,
 })
 export class LoginComponent {
-  readonly loadingStatus = inject(LoadingInterceptor);
+  readonly loadingStatus = inject(LoadingService);
   readonly authService = inject(AuthService);
   readonly formBuilder = inject(FormBuilder);
 
@@ -62,7 +63,13 @@ export class LoginComponent {
     () => this.errorMessage()?.length > 0,
   );
 
-  readonly loading = computed(() => this.loadingStatus.loadingSignal());
+  readonly loading = computed(() => this.loadingStatus.loading());
+
+  constructor() {
+    effect(() => {
+      console.log(this.loading());
+    });
+  }
 
   onOAuthLoginClick(oAuthType: LkUserAuthenticationMethod): void {
     this.authService.oauthLogin(oAuthType);

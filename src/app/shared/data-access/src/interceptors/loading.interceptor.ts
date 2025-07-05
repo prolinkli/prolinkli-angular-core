@@ -4,18 +4,16 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable, Signal, signal } from '@angular/core';
+import { inject, Injectable, Signal, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { finalize, Observable, tap } from 'rxjs';
+import { LoadingService } from '../loading/loading.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoadingInterceptor implements HttpInterceptor {
-  //TODO: convert into a proper map
-  private loading = signal(false);
-  readonly loadingSignal: Signal<boolean> = this.loading.asReadonly();
-  readonly loading$ = toObservable(this.loadingSignal);
+  readonly loadingService = inject(LoadingService);
 
   /**
    * Intercepts HTTP requests to handle loading states.
@@ -33,10 +31,10 @@ export class LoadingInterceptor implements HttpInterceptor {
     // It should handle the request and return an observable.
     return next.handle(req).pipe(
       tap(() => {
-        this.loading.set(true);
+        this.loadingService.loading.set(true);
       }),
       finalize(() => {
-        this.loading.set(false);
+        this.loadingService.loading.set(false);
       }),
     );
   }
