@@ -5,8 +5,9 @@ import {
   finalize,
   startWith,
   map,
+  defer,
 } from 'rxjs';
-import { signal, WritableSignal } from '@angular/core';
+import { isSignal, signal, WritableSignal } from '@angular/core';
 
 /**
  * Custom RxJS operator that manages loading state for any observable
@@ -15,15 +16,24 @@ import { signal, WritableSignal } from '@angular/core';
  * @returns OperatorFunction that handles loading state
  */
 export function withLoading<T>(
-  loadingSignal: WritableSignal<boolean>,
+  setter: (state: boolean) => void,
+): OperatorFunction<T, T>;
+export function withLoading<T>(
+  setter: WritableSignal<boolean>,
+): OperatorFunction<T, T>;
+export function withLoading<T>(
+  setter: ((state: boolean) => void) | WritableSignal<boolean>,
 ): OperatorFunction<T, T> {
-  return (source: Observable<T>) => {
-    const baseSource = source.pipe(
-      tap(() => loadingSignal.set(true)),
-      finalize(() => loadingSignal.set(false)),
-    );
 
-    return baseSource;
+  const fn = isSignal(setter)
+    ? (setter as WritableSignal<boolean>).set.bind(setter)
+    : setter;
+
+  return (source: Observable<T>) => {
+    return defer(() => {
+      fn(true);
+      return source.pipe(finalize(() => fn(false)));
+    });
   };
 }
 

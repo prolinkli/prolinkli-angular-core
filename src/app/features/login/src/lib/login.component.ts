@@ -20,8 +20,8 @@ import {
 } from '@pli-shared/pli-ui';
 import { AuthService } from '@pli-shared/data-access';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { catchError, of } from 'rxjs';
-import { LoadingService } from 'src/app/shared/data-access/src/loading/loading.service';
+import { catchError, of, tap } from 'rxjs';
+import { withLoading, withLoadingAndError } from '@pli-shared/operators';
 
 @Component({
   selector: 'pli-login',
@@ -37,7 +37,6 @@ import { LoadingService } from 'src/app/shared/data-access/src/loading/loading.s
   standalone: true,
 })
 export class LoginComponent {
-  readonly loadingStatus = inject(LoadingService);
   readonly authService = inject(AuthService);
   readonly formBuilder = inject(FormBuilder);
 
@@ -80,6 +79,8 @@ export class LoginComponent {
         authenticationMethodLk: LkUserAuthenticationMethods.PASSWORD,
       })
       .pipe(
+        tap(() => this.errorMessage.set('')),
+        withLoading(this.loading),
         catchError((error, _) => {
           if (error.status === 401) {
             this.errorMessage.set('Invalid credentials. Please try again.');

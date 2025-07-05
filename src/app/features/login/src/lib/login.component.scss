@@ -34,6 +34,10 @@
   box-shadow: pli.$light-shadow-down;
   border-radius: 7px;
 
+  .error {
+    margin-bottom: 1.25rem;
+  }
+
   .pli-logo {
     width: 164px;
     object-fit: contain;
