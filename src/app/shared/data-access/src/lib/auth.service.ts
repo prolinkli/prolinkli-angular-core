@@ -35,48 +35,51 @@ export class AuthService {
   readonly isLoggedIn = new BehaviorSubject<boolean>(false);
   readonly isLoggedInAsSignal = toSignal(this.isLoggedIn);
 
-  readonly sessionCheck$ = this.checkSession();
+  // Remove the continuous session check that was causing interference
+  // readonly sessionCheck$ = this.checkSession();
 
   public isUserLoggedIn() {
+    console.log('AuthService: Checking user login status via API');
     return this.http.get<User>(`${this.API_URL}/me`).pipe(
       map((user) => {
+        console.log('AuthService: API response:', user);
         if (user && user.id) {
           // User is logged in
+          console.log('AuthService: User is logged in');
           this.isLoggedIn.next(true);
           return true;
         } else {
           // User is not logged in
+          console.log('AuthService: User is not logged in');
           this.isLoggedIn.next(false);
           return false;
         }
       }),
       catchError((error, _) => {
+        console.log('AuthService: API error:', error);
         if (error.status === 419) {
           // Unauthorized, user is not logged in
+          console.log('AuthService: 419 error - user not logged in');
           this.isLoggedIn.next(false);
           return of(false);
         }
-        return throwError(() => error);
+        console.log('AuthService: Other error - assuming not logged in');
+        this.isLoggedIn.next(false);
+        return of(false);
       }),
     );
   }
 
-  private checkSession() {
-    return interval(5 * 1000)
+  // Optional: Call this method manually when you want to start session checking
+  public startSessionCheck() {
+    return interval(30 * 1000) // Check every 30 seconds instead of 5
       .pipe(
         startWith(0),
         takeUntilDestroyed(this.destroyRef),
-        // Only check session if we don't know the login state yet
         switchMap(() => this.isUserLoggedIn()),
       )
-      .subscribe((data) => {
-        if (data) {
-          // User is logged in
-          this.isLoggedIn.next(true);
-        } else {
-          // User is not logged in
-          if (this.isLoggedIn.value) this.isLoggedIn.next(false);
-        }
+      .subscribe((isLoggedIn) => {
+        this.isLoggedIn.next(isLoggedIn);
       });
   }
 

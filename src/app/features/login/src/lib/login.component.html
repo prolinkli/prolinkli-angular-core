@@ -1,7 +1,19 @@
-<div class="login-container">
+<div
+class="login-container"
+>
   <div class="left">
     <div class="container">
-      <div pli-container class="inner-container">
+      <div pli-container
+        class="inner-container"
+      >
+        <!-- could move this into a component -->
+        @if (loading()) {
+          <div class="loading-bar">
+            <div class="loading-bar-shimmer">
+            </div>
+          </div>
+        }
+
         <img src="/icons/temp_logo.svg" alt="Logo" class="pli-logo" />
         <pli-error-message [errorMessage]="errorMessage()" />
 

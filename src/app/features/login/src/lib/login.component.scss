@@ -1,4 +1,5 @@
 @use '@pli-theming/core' as pli;
+@use 'sass:color' as color;
 
 .login-container {
   display: flex;
@@ -52,11 +53,104 @@
 }
 
 .inner-container {
+  position: relative;
   width: 375px;
   height: 100%;
   max-height: 717px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+
+  .loading-bar {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 16px;
+    background-color: opacify(pli.$gray-150, .25);
+    border-bottom: 1px solid pli.$gray-325;
+    box-shadow: 0 2px 6px 7px pli.$gray-175;
+    z-index: 1;
+    animation: loading-bar 250ms ease-in-out;
+    animation-fill-mode: forwards;
+
+    @keyframes loading-bar {
+      0% {
+        top: -16px;
+      }
+      100% {
+        top: 0;
+      }
+    }
+
+
+    &-shimmer {
+      position: absolute;
+      top: 0;
+      $width: 100%;
+      left: -100%;
+      width: $width;
+      height: 100%;
+      $bg: linear-gradient(
+        to right,
+        transparent 0%,
+        pli.$green-300 20%,
+        pli.$green-300 80%,
+        transparent 100%
+      );
+      background: $bg;
+      animation: loading-bar-shimmer 2s linear infinite;
+      animation-fill-mode: forwards;
+      z-index: 2;
+
+      &::before {
+        content: '';
+        position: absolute;
+
+        top:0;
+        left: 50%;
+        z-index: 1;
+
+        transform: translateX(-50%);
+        filter: blur(10px);
+
+        background: $bg;
+
+        width: 75%;
+        height: 100%;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        animation: loading-bar-opacify 2s ease-in-out infinite;
+        animation-fill-mode: forwards;
+        box-shadow: none;
+      }
+
+      @keyframes loading-bar-opacify {
+        0% {
+          opacity: 0.0;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 0.0;
+        }
+      }
+
+      @keyframes loading-bar-shimmer {
+        0% {
+          left: -$width;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+    }
+
+  }
+
   .btn {
     width: 100%;
   }

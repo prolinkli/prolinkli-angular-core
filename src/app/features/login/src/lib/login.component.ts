@@ -20,6 +20,7 @@ import {
 import { AuthService } from '@pli-shared/data-access';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { catchError, of } from 'rxjs';
+import { LoadingInterceptor } from 'src/app/shared/data-access/src/interceptors/loading.interceptor';
 
 @Component({
   selector: 'pli-login',
@@ -35,6 +36,7 @@ import { catchError, of } from 'rxjs';
   standalone: true,
 })
 export class LoginComponent {
+  readonly loadingStatus = inject(LoadingInterceptor);
   readonly authService = inject(AuthService);
   readonly formBuilder = inject(FormBuilder);
 
@@ -44,7 +46,6 @@ export class LoginComponent {
     specialToken: [''],
   });
 
-  // TODO: pull in valid auth methods from the backend
   readonly validOAuthMethods = computed<LkUserAuthenticationMethod[]>(
     () =>
       [
@@ -60,6 +61,8 @@ export class LoginComponent {
   readonly shouldShowError: Signal<boolean> = computed(
     () => this.errorMessage()?.length > 0,
   );
+
+  readonly loading = computed(() => this.loadingStatus.loadingSignal());
 
   onOAuthLoginClick(oAuthType: LkUserAuthenticationMethod): void {
     this.authService.oauthLogin(oAuthType);

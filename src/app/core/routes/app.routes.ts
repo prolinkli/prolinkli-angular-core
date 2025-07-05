@@ -10,7 +10,7 @@ export const routes: Routes = [
       import('@pli-feature/admin-dashboard').then(
         (m) => m.AdminDashboardComponent,
       ),
-    canActivate: [LoggedOutGuard],
+    canActivate: [AuthGuard], // Changed from LoggedOutGuard to AuthGuard
     data: {
       title: 'Admin Dashboard',
       breadcrumb: 'Admin Dashboard',
@@ -32,7 +32,13 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: '',
+    redirectTo: '/app', // Changed back to /app since guards handle redirects properly
+    pathMatch: 'full',
+  },
+  {
     path: '**',
-    redirectTo: '/app',
+    redirectTo: '/app', // Changed back to /app since guards handle redirects properly
+    pathMatch: 'full',
   },
 ];

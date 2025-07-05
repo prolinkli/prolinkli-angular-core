@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   template: `
     <p>
       home works!
+      <a href="/api/user/logout">Logout</a>
     </p>
   `,
   styles: ``
