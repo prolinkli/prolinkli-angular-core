@@ -65,12 +65,6 @@ export class LoginComponent {
 
   readonly loading = computed(() => this.loadingStatus.loading());
 
-  constructor() {
-    effect(() => {
-      console.log(this.loading());
-    });
-  }
-
   onOAuthLoginClick(oAuthType: LkUserAuthenticationMethod): void {
     this.authService.oauthLogin(oAuthType);
   }
