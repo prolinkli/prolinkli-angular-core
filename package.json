@@ -32,7 +32,7 @@
   "devDependencies": {
     "@angular-devkit/core": "^20.0.5",
     "@angular-devkit/schematics": "^20.0.5",
-    "@angular/build": "^20.0.5",
+    "@angular/build": "^20.3.4",
     "@angular/cli": "^20.0.5",
     "@angular/compiler-cli": "^20.0.6",
     "@types/express": "^5.0.3",
